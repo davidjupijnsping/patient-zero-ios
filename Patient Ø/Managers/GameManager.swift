@@ -7,18 +7,57 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 import CoreLocation
 
 class GameManager: NSObject {
-    static let sharedInstance = GameManager()
+  var locationManager = LocationManager()
+  var vibrationManager = VibrationManager()
 
-    var userLocation: CLLocation?
-    var endCoordinate: CLLocationCoordinate2D?
-    var gameInfo: GameInfo?
-    var started = false
+  var gameStarted = false
+  var gameInfo: GameInfo?
 
-    func startGame(info: GameInfo) {
-        gameInfo = info
-        started = true
+  //  var userLocation: CLLocation?
+  //  var endCoordinate: CLLocationCoordinate2D?
+
+  func setupGameManager() {
+    locationManager.setupLocationManager()
+  }
+
+  func startGame(callback: () -> Void) {
+    Alamofire.request(.GET, "\(apiURL)games.json", parameters: nil)
+      .responseJSON { response in
+        if response.result.value != nil {
+          let json = JSON(response.result.value!)
+          self.startGameConfirmed(GameInfo(json:json))
+          callback()
+        } else {
+          callback(/*error*/) // TODO: error handling
+        }
     }
+  }
+
+  func stopGame(callback: () -> Void) {
+    // TODO: stop the game
+    callback()
+  }
+
+  private func startGameConfirmed(info: GameInfo) {
+    gameInfo = info
+    gameStarted = true
+    locationManager.startUpdatingLocation() { location in
+      self.locationUpdate(location)
+    }
+  }
+
+  func locationUpdate(location: CLLocation) {
+    if gameStarted && gameInfo != nil {
+      let params = ["location": ["game_id": gameInfo!.id, "lat": location.coordinate.latitude, "long": location.coordinate.longitude]]
+      Alamofire.request(.POST, "\(apiURL)locations.json", parameters: params)
+        .responseJSON { response in
+          debugPrint("posted userlocation")
+      }
+    }
+  }
 }

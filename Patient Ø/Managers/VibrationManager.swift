@@ -10,12 +10,20 @@ import UIKit
 import AudioToolbox
 
 class VibrationManager: NSObject {
-    static let sharedInstance = VibrationManager()
-    var heartBeatPace:Int32 = 120
+  var heartBeatPace:Int32 = 120
 
-    enum VibratePattern: Int {
-        case HeartBeat = 0
-    }
+  enum VibratePattern: Int {
+    case HeartBeat = 0
+  }
+
+  func startHeartbeat() {
+    
+  }
+
+  func stopHeartbeat() {
+  }
+
+  
 
 /*    func customVibration() {
         var dict = NSMutableDictionary()
