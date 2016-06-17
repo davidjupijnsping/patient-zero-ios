@@ -4,5 +4,6 @@ use_frameworks!
 
 target 'Patient Ø' do
   pod 'Alamofire'
-  pod 'SwiftyJSON'
+#  pod 'SwiftyJSON'
+  pod 'ActionCableClient'
 end

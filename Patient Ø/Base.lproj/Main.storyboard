@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Game View Controller-->
@@ -17,9 +18,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="5Sj-qf-9dD">
+                                <rect key="frame" x="20" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cag-vb-9tm">
                                 <rect key="frame" x="252" y="285" width="97" height="30"/>
-                                <state key="normal" title="START GAME!"/>
+                                <state key="normal" title="START GAME!">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="didTapStartGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dHL-sl-EPy"/>
                                 </connections>
@@ -27,8 +33,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="5Sj-qf-9dD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="1KI-WD-nYl"/>
                             <constraint firstItem="cag-vb-9tm" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6Pd-5C-1Hh"/>
+                            <constraint firstItem="5Sj-qf-9dD" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="7tr-4V-mQK"/>
                             <constraint firstItem="cag-vb-9tm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9If-46-S1P"/>
+                            <constraint firstItem="5Sj-qf-9dD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="kOb-1v-FQ6"/>
+                            <constraint firstItem="5Sj-qf-9dD" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="ved-9E-g62"/>
                         </constraints>
                     </view>
                     <connections>
@@ -39,4 +49,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="1152" height="864"/>
+    </resources>
 </document>

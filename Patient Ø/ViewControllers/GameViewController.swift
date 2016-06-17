@@ -25,11 +25,11 @@ class GameViewController: UIViewController {
   @IBAction func didTapStartGame(sender: UIButton) {
     if gameManager.gameStarted {
       gameManager.stopGame() {
-        self.startGameButton.titleLabel?.text = "Start game"
+        self.startGameButton.titleLabel?.text = "Start game".uppercaseString
       }
     } else {
       gameManager.startGame() {
-        self.startGameButton.titleLabel?.text = "Stop game"
+        self.startGameButton.titleLabel?.text = "Stop game".uppercaseString
         // TODO: error handling
       }
     }
