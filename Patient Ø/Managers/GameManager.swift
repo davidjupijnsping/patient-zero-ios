@@ -37,12 +37,15 @@ class GameManager: NSObject {
 
   func stopGame(onStoppedCallback: () -> Void) {
     // TODO: stop the game
+    locationManager.stopUpdatingLocation()
+    vibrationManager.stopHeartbeat()
     onStoppedCallback()
   }
 
   private func startGameConfirmed(info: GameInfo) {
     gameInfo = info
     gameStarted = true
+    vibrationManager.startHeartbeat()
     locationManager.startUpdatingLocation() { location in
       self.locationUpdate(location)
     }

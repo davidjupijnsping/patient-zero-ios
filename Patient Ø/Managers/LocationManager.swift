@@ -13,8 +13,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
   typealias locationCallback = (location: CLLocation) -> Void
 
   var locationManager = CLLocationManager()
-  var lastLocation: CLLocation?
   var onLocationChange: locationCallback?
+  var lastLocation: CLLocation?
 
   func setupLocationManager() {
     locationManager = CLLocationManager()
@@ -26,8 +26,13 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
   }
 
-  func startUpdatingLocation(callbackOnLocationChange: locationCallback) {
+  func startUpdatingLocation(onLocationChangeCallback: locationCallback) {
+    self.onLocationChange = onLocationChangeCallback
     locationManager.startUpdatingLocation()
+  }
+
+  func stopUpdatingLocation() {
+    locationManager.stopUpdatingLocation()
   }
 
   func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

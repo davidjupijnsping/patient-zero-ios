@@ -11,7 +11,7 @@ import AudioToolbox
 
 class VibrationManager: NSObject {
   var heartbeatActive: Bool = false
-  var heartbeatInterval = 5.0
+  var heartbeatInterval = 10.0
   var heartbeatTimer: NSTimer?
   var heartbeatTimer2: NSTimer?
 
@@ -40,10 +40,14 @@ class VibrationManager: NSObject {
       if heartbeatTimer == nil {
         heartbeatTimer = NSTimer.scheduledTimerWithTimeInterval(heartbeatInterval, target: self, selector: #selector(VibrationManager.heartbeatTrigger), userInfo: nil, repeats: false)
       } else {
-        // TODO: test if this is correct
         var timeRemaining = heartbeatTimer!.fireDate.timeIntervalSinceNow - (oldHeartbeatInterval - heartbeatInterval)
         if timeRemaining < 0 {
-          timeRemaining = heartbeatInterval
+          timeRemaining = 0.1
+        }
+
+        if timeRemaining < 0.5 && heartbeatTimer2 != nil {
+          heartbeatTimer2?.invalidate()
+          heartbeatTimer2 = nil
         }
 
         heartbeatTimer?.invalidate()
