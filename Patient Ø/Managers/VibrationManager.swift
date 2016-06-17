@@ -10,33 +10,60 @@ import UIKit
 import AudioToolbox
 
 class VibrationManager: NSObject {
-  var heartBeatPace:Int32 = 120
-
-  enum VibratePattern: Int {
-    case HeartBeat = 0
-  }
+  var heartbeatActive: Bool = false
+  var heartbeatInterval = 5.0
+  var heartbeatTimer: NSTimer?
+  var heartbeatTimer2: NSTimer?
 
   func startHeartbeat() {
-    
+    if !heartbeatActive {
+      heartbeatActive = true
+      scheduleNextHeartbeat()
+    }
   }
 
   func stopHeartbeat() {
+    if heartbeatActive {
+      heartbeatActive = false
+      heartbeatTimer?.invalidate()
+      heartbeatTimer2?.invalidate()
+      heartbeatTimer = nil
+      heartbeatTimer2 = nil
+    }
   }
 
-  
+  func changeHeartbeatInterval(interval: Double) {
+    self.heartbeatInterval = interval
 
-/*    func customVibration() {
-        var dict = NSMutableDictionary()
-        var array = Array<NSNumber>()
+    if heartbeatActive {
+      heartbeatTimer?.invalidate()
+      heartbeatTimer2?.invalidate()
+      heartbeatTimer = nil
+      heartbeatTimer2 = nil
+      // TODO: start new timer for **remainder*** of time
+      heartbeatTimer = NSTimer.scheduledTimerWithTimeInterval(heartbeatInterval, target: self, selector: #selector(VibrationManager.heartbeatTrigger), userInfo: nil, repeats: false)
+    }
+  }
 
-        array.append(NSNumber(bool: true))
-        array.append(NSNumber(int: 1000 * heartBeatPace))
-        array.append(NSNumber(bool: false))
-        array.append(NSNumber(int: 1000 * heartBeatPace))
+  private func scheduleNextHeartbeat() {
+    heartbeatTimer = NSTimer.scheduledTimerWithTimeInterval(heartbeatInterval, target: self, selector: #selector(VibrationManager.heartbeatTrigger), userInfo: nil, repeats: false)
+  }
 
-        dict.setObject(array, forKey: "VibePattern")
-        dict.setObject(NSNumber(int:1), forKey: "Intensity")
+  func heartbeatTrigger() {
+    playHeartbeat()
+    scheduleNextHeartbeat()
+  }
 
-        AudioServicesPlaySystemSoundWithVibration(kSystemSoundID_Vibrate, nil, dict)
-    }*/
+  private func playHeartbeat() {
+    heartbeatTimer = nil
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+    if heartbeatInterval > 0.5 {
+      heartbeatTimer2 = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(VibrationManager.playSecondHeartbeat), userInfo: nil, repeats: false)
+    }
+  }
+
+  func playSecondHeartbeat() {
+    heartbeatTimer2 = nil
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+  }
 }

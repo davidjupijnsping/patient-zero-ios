@@ -25,22 +25,22 @@ class GameManager: NSObject {
     locationManager.setupLocationManager()
   }
 
-  func startGame(callback: () -> Void) {
+  func startGame(onStartedCallback: () -> Void) {
     Alamofire.request(.GET, "\(apiURL)games.json", parameters: nil)
       .responseJSON { response in
         if response.result.value != nil {
           let json = JSON(response.result.value!)
           self.startGameConfirmed(GameInfo(json:json))
-          callback()
+          onStartedCallback()
         } else {
-          callback(/*error*/) // TODO: error handling
+          onStartedCallback(/*error*/) // TODO: error handling
         }
     }
   }
 
-  func stopGame(callback: () -> Void) {
+  func stopGame(onStoppedCallback: () -> Void) {
     // TODO: stop the game
-    callback()
+    onStoppedCallback()
   }
 
   private func startGameConfirmed(info: GameInfo) {
@@ -53,11 +53,30 @@ class GameManager: NSObject {
 
   func locationUpdate(location: CLLocation) {
     if gameStarted && gameInfo != nil {
-      let params = ["location": ["game_id": gameInfo!.id, "lat": location.coordinate.latitude, "long": location.coordinate.longitude]]
-      Alamofire.request(.POST, "\(apiURL)locations.json", parameters: params)
-        .responseJSON { response in
-          debugPrint("posted userlocation")
-      }
+      sendLocationToServer(location)
+      updateHeartbeat(location)
+    }
+  }
+
+  private func sendLocationToServer(location: CLLocation) {
+    let params = ["location": ["game_id": gameInfo!.id, "lat": location.coordinate.latitude, "long": location.coordinate.longitude]]
+    Alamofire.request(.POST, "\(apiURL)locations.json", parameters: params)
+      .responseJSON { response in
+        debugPrint("posted userlocation")
+    }
+  }
+
+  private func updateHeartbeat(location: CLLocation) {
+    let distance = gameInfo!.distanceFromLocation(location)
+    let heartbeatInterval = determineHeartbeatInterval(distance)
+    vibrationManager.changeHeartbeatInterval(heartbeatInterval)
+  }
+
+  private func determineHeartbeatInterval(distance: CLLocationDistance) -> Double {
+    if distance > 100 {
+      return 10.0
+    } else {
+      return distance/10.0
     }
   }
 }
