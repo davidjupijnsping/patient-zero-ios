@@ -33,15 +33,22 @@ class VibrationManager: NSObject {
   }
 
   func changeHeartbeatInterval(interval: Double) {
+    let oldHeartbeatInterval = self.heartbeatInterval
     self.heartbeatInterval = interval
 
     if heartbeatActive {
-      heartbeatTimer?.invalidate()
-      heartbeatTimer2?.invalidate()
-      heartbeatTimer = nil
-      heartbeatTimer2 = nil
-      // TODO: start new timer for **remainder*** of time
-      heartbeatTimer = NSTimer.scheduledTimerWithTimeInterval(heartbeatInterval, target: self, selector: #selector(VibrationManager.heartbeatTrigger), userInfo: nil, repeats: false)
+      if heartbeatTimer == nil {
+        heartbeatTimer = NSTimer.scheduledTimerWithTimeInterval(heartbeatInterval, target: self, selector: #selector(VibrationManager.heartbeatTrigger), userInfo: nil, repeats: false)
+      } else {
+        // TODO: test if this is correct
+        var timeRemaining = heartbeatTimer!.fireDate.timeIntervalSinceNow - (oldHeartbeatInterval - heartbeatInterval)
+        if timeRemaining < 0 {
+          timeRemaining = heartbeatInterval
+        }
+
+        heartbeatTimer?.invalidate()
+        heartbeatTimer = NSTimer.scheduledTimerWithTimeInterval(heartbeatInterval, target: self, selector: #selector(VibrationManager.heartbeatTrigger), userInfo: nil, repeats: false)
+      }
     }
   }
 

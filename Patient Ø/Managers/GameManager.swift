@@ -18,9 +18,6 @@ class GameManager: NSObject {
   var gameStarted = false
   var gameInfo: GameInfo?
 
-  //  var userLocation: CLLocation?
-  //  var endCoordinate: CLLocationCoordinate2D?
-
   func setupGameManager() {
     locationManager.setupLocationManager()
   }
