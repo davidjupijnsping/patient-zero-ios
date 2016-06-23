@@ -65,9 +65,9 @@ class GameViewController: UIViewController, GameManagerDelegate {
     confettiView.type = .Confetti
     confettiView.startConfetti()
 //    self.view.addSubview(confettiView)
+    self.startGameButton.setTitle("Start game".uppercaseString, forState: .Normal)
 
-
-    statusMessage = "You just saved the world!"
+    statusMessage = "You just saved the world like a boss!"
     statusLabel.text = statusMessage
   }
 
@@ -91,6 +91,11 @@ class GameViewController: UIViewController, GameManagerDelegate {
       confettiView.stopConfetti()
 //      confettiView.removeFromSuperview()
     }
+  }
+
+  func foundPatientØ() {
+    statusMessage = "Bring Patient Ø to the CDC!"
+    statusLabel.text = statusMessage
   }
 }
 

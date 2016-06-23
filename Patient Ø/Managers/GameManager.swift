@@ -16,6 +16,7 @@ protocol GameManagerDelegate {
   func didSaveTheWorld()
   func gotEaten()
   func stopGettingEaten();
+  func foundPatientØ();
 }
 
 class GameManager: NSObject {
@@ -27,6 +28,7 @@ class GameManager: NSObject {
   var gameStarted = false
   var gameInfo: GameInfo?
   var savedTheWorld = false
+  var hasPatientØ = false
   var delegate: GameManagerDelegate?
 
   func setupGameManager(delegate:GameManagerDelegate? ) {
@@ -64,6 +66,7 @@ class GameManager: NSObject {
     gameInfo = info
     gameStarted = true
     savedTheWorld = false
+    hasPatientØ = false
     vibrationManager.startHeartbeat()
     locationManager.startUpdatingLocation() { location in
       self.locationUpdate(location)
@@ -155,14 +158,29 @@ class GameManager: NSObject {
 
     if distance < rescueDistance {
       // You won big time!
-      wonGame()
+      if hasPatientØ {
+        wonGame()
+      } else {
+        foundPatientØ()
+      }
     }
   }
 
-  func wonGame() {
-    Alamofire.request(.POST, "\(apiURL)finished.json", parameters: nil)
-      .responseJSON { response in
+  func foundPatientØ() {
 
+    hasPatientØ = true
+    gameInfo?.coordinate = gameInfo!.coordinateCDC
+
+    // Found the patient now go to the CDC!
+    Alamofire.request(.POST, "\(apiURL)/\(gameInfo!.id)/found_target.json", parameters: nil)
+      .responseJSON { response in
+    }
+    delegate?.foundPatientØ()
+  }
+
+  func wonGame() {
+    Alamofire.request(.POST, "\(apiURL)/\(gameInfo!.id)/finish.json", parameters: nil)
+      .responseJSON { response in
     }
     stopGame {}
     delegate?.didSaveTheWorld()
