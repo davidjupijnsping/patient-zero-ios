@@ -12,6 +12,7 @@
 		11395F7D1D0AF050002E003A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11395F7B1D0AF050002E003A /* Main.storyboard */; };
 		11395F7F1D0AF050002E003A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11395F7E1D0AF050002E003A /* Assets.xcassets */; };
 		11395F821D0AF050002E003A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11395F801D0AF050002E003A /* LaunchScreen.storyboard */; };
+		11414A871D1BE02C008F08E2 /* help.wav in Resources */ = {isa = PBXBuildFile; fileRef = 11414A861D1BE02C008F08E2 /* help.wav */; };
 		119840621D198A1700FD08CB /* Fader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119840611D198A1700FD08CB /* Fader.swift */; };
 		11BD2E131D0AF59E000C04E6 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BD2E121D0AF59E000C04E6 /* CLLocationCoordinate2D.swift */; };
 		11BD2E191D0AF6A9000C04E6 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BD2E181D0AF6A9000C04E6 /* AppConfig.swift */; };
@@ -34,6 +35,7 @@
 		11395F7E1D0AF050002E003A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11395F811D0AF050002E003A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11395F831D0AF050002E003A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11414A861D1BE02C008F08E2 /* help.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = help.wav; path = Sounds/help.wav; sourceTree = "<group>"; };
 		119840611D198A1700FD08CB /* Fader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fader.swift; path = Helpers/Fader.swift; sourceTree = "<group>"; };
 		11BD2E121D0AF59E000C04E6 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLLocationCoordinate2D.swift; path = Extensions/CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		11BD2E181D0AF6A9000C04E6 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 		11CE763F1D1453DE00C55D90 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				11414A861D1BE02C008F08E2 /* help.wav */,
 				11CE76401D14542900C55D90 /* zombie.wav */,
 			);
 			name = Sounds;
@@ -238,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11414A871D1BE02C008F08E2 /* help.wav in Resources */,
 				11395F821D0AF050002E003A /* LaunchScreen.storyboard in Resources */,
 				11395F7F1D0AF050002E003A /* Assets.xcassets in Resources */,
 				11CE76411D14542900C55D90 /* zombie.wav in Resources */,

@@ -75,6 +75,7 @@ class GameManager: NSObject {
 
     }
     soundManager.playHazardSound()
+    soundManager.playHelpSound()
   }
 
   func locationUpdate(location: CLLocation) {
@@ -160,10 +161,13 @@ class GameManager: NSObject {
       // You won big time!
       if hasPatientØ {
         wonGame()
+
       } else {
         foundPatientØ()
+        soundManager.stopHelpSound()
       }
     }
+    soundManager.updateVolumeHelp(distance)
   }
 
   func foundPatientØ() {
