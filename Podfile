@@ -4,6 +4,6 @@ use_frameworks!
 
 target 'Patient Ø' do
   pod 'Alamofire'
-#  pod 'SwiftyJSON'
   pod 'ActionCableClient'
+  pod 'SAConfettiView'
 end

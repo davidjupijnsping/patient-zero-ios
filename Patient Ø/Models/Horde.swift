@@ -26,6 +26,7 @@ class Horde: NSObject {
 
   func updateCoordinate(json: JSON) {
     coordinate = CLLocation(latitude: json["lat"].doubleValue, longitude: json["long"].doubleValue)
+    radius = json["radius"].doubleValue
   }
 
   func distanceFromLocation(location: CLLocation) -> CLLocationDistance {

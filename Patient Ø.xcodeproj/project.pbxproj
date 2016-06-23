@@ -12,6 +12,7 @@
 		11395F7D1D0AF050002E003A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11395F7B1D0AF050002E003A /* Main.storyboard */; };
 		11395F7F1D0AF050002E003A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11395F7E1D0AF050002E003A /* Assets.xcassets */; };
 		11395F821D0AF050002E003A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11395F801D0AF050002E003A /* LaunchScreen.storyboard */; };
+		119840621D198A1700FD08CB /* Fader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119840611D198A1700FD08CB /* Fader.swift */; };
 		11BD2E131D0AF59E000C04E6 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BD2E121D0AF59E000C04E6 /* CLLocationCoordinate2D.swift */; };
 		11BD2E191D0AF6A9000C04E6 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BD2E181D0AF6A9000C04E6 /* AppConfig.swift */; };
 		11BD2E1C1D0AFC1A000C04E6 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BD2E1B1D0AFC1A000C04E6 /* GameManager.swift */; };
@@ -33,6 +34,7 @@
 		11395F7E1D0AF050002E003A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11395F811D0AF050002E003A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11395F831D0AF050002E003A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		119840611D198A1700FD08CB /* Fader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fader.swift; path = Helpers/Fader.swift; sourceTree = "<group>"; };
 		11BD2E121D0AF59E000C04E6 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLLocationCoordinate2D.swift; path = Extensions/CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		11BD2E181D0AF6A9000C04E6 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		11BD2E1B1D0AFC1A000C04E6 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameManager.swift; path = Managers/GameManager.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		11395F761D0AF050002E003A /* Patient Ø */ = {
 			isa = PBXGroup;
 			children = (
+				119840601D1989F900FD08CB /* Helpers */,
 				11395F771D0AF050002E003A /* AppDelegate.swift */,
 				11BD2E181D0AF6A9000C04E6 /* AppConfig.swift */,
 				11BD2E141D0AF5CA000C04E6 /* ViewControllers */,
@@ -99,6 +102,14 @@
 				11BD2E151D0AF622000C04E6 /* Resources */,
 			);
 			path = "Patient Ø";
+			sourceTree = "<group>";
+		};
+		119840601D1989F900FD08CB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				119840611D198A1700FD08CB /* Fader.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		11BD2E111D0AF571000C04E6 /* Extensions */ = {
@@ -289,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				119840621D198A1700FD08CB /* Fader.swift in Sources */,
 				11395F7A1D0AF050002E003A /* GameViewController.swift in Sources */,
 				11BD2E191D0AF6A9000C04E6 /* AppConfig.swift in Sources */,
 				11395F781D0AF050002E003A /* AppDelegate.swift in Sources */,

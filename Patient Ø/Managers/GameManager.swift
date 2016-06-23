@@ -12,17 +12,25 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
+protocol GameManagerDelegate {
+  func didSaveTheWorld()
+  func gotEaten()
+  func stopGettingEaten();
+}
+
 class GameManager: NSObject {
   var locationManager = LocationManager()
   var vibrationManager = VibrationManager()
   var socketManager = SocketManager()
   var soundManager = SoundManager()
-  var hordes: Array<Horde> = []
-
+  var hordes = Array<Horde>()
   var gameStarted = false
   var gameInfo: GameInfo?
+  var savedTheWorld = false
+  var delegate: GameManagerDelegate?
 
-  func setupGameManager() {
+  func setupGameManager(delegate:GameManagerDelegate? ) {
+    self.delegate = delegate
     locationManager.setupLocationManager()
   }
 
@@ -55,6 +63,7 @@ class GameManager: NSObject {
     UIApplication.sharedApplication().idleTimerDisabled = true
     gameInfo = info
     gameStarted = true
+    savedTheWorld = false
     vibrationManager.startHeartbeat()
     locationManager.startUpdatingLocation() { location in
       self.locationUpdate(location)
@@ -70,6 +79,7 @@ class GameManager: NSObject {
       sendLocationToServer(location)
       checkHazards(location)
       updateHeartbeat(location)
+      checkPatientØ(location)
     }
   }
 
@@ -130,5 +140,31 @@ class GameManager: NSObject {
     }
 
     soundManager.updateVolume(closest)
+
+    if closest <= 0 {
+      delegate?.gotEaten()
+    } else {
+      delegate?.stopGettingEaten()
+    }
+  }
+
+  func checkPatientØ(location: CLLocation) {
+
+    let patientØLocation = CLLocation(latitude: gameInfo!.coordinate.coordinate.latitude, longitude: gameInfo!.coordinate.coordinate.longitude)
+    let distance = patientØLocation.distanceFromLocation(location)
+
+    if distance < rescueDistance {
+      // You won big time!
+      wonGame()
+    }
+  }
+
+  func wonGame() {
+    Alamofire.request(.POST, "\(apiURL)finished.json", parameters: nil)
+      .responseJSON { response in
+
+    }
+    stopGame {}
+    delegate?.didSaveTheWorld()
   }
 }

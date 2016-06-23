@@ -12,15 +12,20 @@ import AVFoundation
 class SoundManager: NSObject {
   var hazardSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("zombie", ofType: "wav")!)
   var audioPlayer = AVAudioPlayer()
-  var volume = Float(0)
+  var volume = Double(0)
+  var fader: Fader?
 
   func updateVolume(distance: Double) {
     var calculatedVolume = volumeForDistance(distance)
     if calculatedVolume < 0 {
       calculatedVolume = 0
     }
-    volume = Float(calculatedVolume)
-    audioPlayer.volume = volume
+//    audioPlayer.volume = volume
+    fader!.fade(fromVolume: self.volume, toVolume: calculatedVolume, duration: 1, velocity: -2) { (success) in
+      // Do nothing
+    }
+    volume = Double(calculatedVolume)
+
   }
 
   private func volumeForDistance(distance: Double) -> Double {
@@ -30,8 +35,11 @@ class SoundManager: NSObject {
   func playHazardSound() {
     do {
       audioPlayer = try AVAudioPlayer(contentsOfURL: hazardSound)
-      audioPlayer.volume = volume
+      audioPlayer.volume = 0
       audioPlayer.play()
+      audioPlayer.numberOfLoops = Int.max
+      fader = Fader(player: audioPlayer)
+
     } catch {
 
     }
