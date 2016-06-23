@@ -167,7 +167,10 @@ class GameManager: NSObject {
         soundManager.stopHelpSound()
       }
     }
-    soundManager.updateVolumeHelp(distance)
+
+    if !hasPatientØ {
+      soundManager.updateVolumeHelp(distance)
+    }
   }
 
   func foundPatientØ() {
